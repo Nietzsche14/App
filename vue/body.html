@@ -1,0 +1,63 @@
+	
+<script src="vue/jquery.js"></script>
+
+<div id="nbQuestion"></div>
+<div id="affichageVideo" style="display: none">
+	<fieldset id="fs1">
+		<legend>video Originale </legend>
+			<video id="videoOrig" src="http://liris.cnrs.fr/guillaume.lavoue/rech/mask.ogv"/>
+		<div id="attente0"><div>
+	</fieldset>
+	
+	<fieldset id="fs2">
+		<legend>Algorithme 1</legend>
+		
+			<video id="videoAlgo1" src="http://liris.cnrs.fr/guillaume.lavoue/rech/"+{$listeVideos[2][0]}+".ogv" />
+		<div id="attente1"><div>
+	</fieldset>
+	<fieldset id="fs3">
+		<legend>Algorithme 2</legend>
+			<video id="videoAlgo2" src="http://liris.cnrs.fr/guillaume.lavoue/rech/"{$listeVideos[2][0]}".ogv" />
+		<div id="attente2"><div>
+	</fieldset>
+</div>
+<input type="button" name="suivant" value="Suivant"/>
+<input type="button" name="precedent" value="Precedent"/>
+<form id="formulaireVideo" method="post" action="controleur/RecuperationResultat.php"/>
+	<input type="hidden" name="checkbox1" value=""/>
+	<input type="hidden" name="checkbox2" value=""/>
+	<input type="button" value="start" onclick="request('start',readData);"/>
+	<input type="button" value="suivant" onclick="request('next',readData);"/>
+	<input type="button" value="fin" onclick="request('fin',readData);"/>
+</form>
+<script src="vue/modernizr.video.js"></script>
+<script>
+var compteur=0;
+function request(param,callback) {
+	var xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+			callback(xhr.responseText);
+		}
+	};
+	if (param==='start') var resultat = encodeURIComponent('start');
+	if (param==='next') {
+		var resultat = encodeURIComponent('next');
+		window.compteur++;
+		var compt=window.compteur;
+		console.log(window.compteur);
+	}
+	if (param==='fin')	var resultat=encodeURIComponent('fin');
+	
+	xhr.open("GET", "controleur/resultat.php?resultat=" + resultat+'&compteur='+compt, true);
+	xhr.send(null);
+}
+
+function readData(sData) {
+	alert(sData);
+}
+
+
+
+</script>
