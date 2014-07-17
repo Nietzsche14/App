@@ -2,22 +2,21 @@
 <script src="vue/jquery.js"></script>
 
 <div id="nbQuestion"></div>
-<div id="affichageVideo" style="display: none">
+<div id="affichageVideo" style="display: true">
 	<fieldset id="fs1">
 		<legend>video Originale </legend>
-			<video id="videoOrig" src="http://liris.cnrs.fr/guillaume.lavoue/rech/mask.ogv"/>
+			<video id="videoOrig" width="300" height="300" type="video/ogv" />
 		<div id="attente0"><div>
 	</fieldset>
 	
 	<fieldset id="fs2">
 		<legend>Algorithme 1</legend>
-		
-			<video id="videoAlgo1" src="http://liris.cnrs.fr/guillaume.lavoue/rech/"+{$listeVideos[2][0]}+".ogv" />
+			<video id="videoAlgo1" width="300" height="300" type="video/ogv"  />
 		<div id="attente1"><div>
 	</fieldset>
 	<fieldset id="fs3">
 		<legend>Algorithme 2</legend>
-			<video id="videoAlgo2" src="http://liris.cnrs.fr/guillaume.lavoue/rech/"{$listeVideos[2][0]}".ogv" />
+			<video id="videoAlgo2" width="300" height="300" type="video/ogv"  />
 		<div id="attente2"><div>
 	</fieldset>
 </div>
@@ -30,9 +29,14 @@
 	<input type="button" value="suivant" onclick="request('next',readData);"/>
 	<input type="button" value="fin" onclick="request('fin',readData);"/>
 </form>
+{literal}
 <script src="vue/modernizr.video.js"></script>
 <script>
 var compteur=0;
+var urlVideo="http://liris.cnrs.fr/guillaume.lavoue/rech/";
+var id='1411';
+var ecran=screen.width+'x'+screen.height;
+
 function request(param,callback) {
 	var xhr = new XMLHttpRequest();
 	
@@ -41,23 +45,31 @@ function request(param,callback) {
 			callback(xhr.responseText);
 		}
 	};
-	if (param==='start') var resultat = encodeURIComponent('start');
+	var requete=''
+	if (param==='start') requete+='start=1&id='+window.id+'&ecran='+window.ecran;
 	if (param==='next') {
-		var resultat = encodeURIComponent('next');
 		window.compteur++;
 		var compt=window.compteur;
 		console.log(window.compteur);
+		requete +='next=1&compteur='+compt+'&';
 	}
-	if (param==='fin')	var resultat=encodeURIComponent('fin');
+	if (param==='fin')	requete+='fin=1&';
+	if (param==='test')	requete+='test=1&';
 	
-	xhr.open("GET", "controleur/resultat.php?resultat=" + resultat+'&compteur='+compt, true);
+	xhr.open("GET", "controleur/resultat.php?"+requete, true);
 	xhr.send(null);
 }
 
 function readData(sData) {
-	alert(sData);
+	console.log(sData);
+	
+	var videoSource= sData.split(',');
+	$('video').each(function(i,el){
+		el.src=window.urlVideo+videoSource[i]+".ogv";
+		console.log(el.src);
+		el.load();
+		});
 }
 
-
-
 </script>
+{/literal}

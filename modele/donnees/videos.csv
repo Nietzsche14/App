@@ -1,3 +1,4 @@
-1,Gong,Gong,Gong
-2,sphereO,sphereO,sphereO
-3,mask,mask,mask
+id,videoOrig,videoAlgo1,videoAlgo2,width,height
+1,Gong,Gong,Gong,300,220
+2,sphereO,sphereO,sphereO,300,300
+3,mask,mask,mask,220,300

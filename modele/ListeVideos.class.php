@@ -15,10 +15,12 @@ class ListeVideos{
 		$fichier=fopen($this->fichierCSVVideos,'r');
 		$i=0;
 		while(!feof($fichier)){
-			$ligne=fgets($fichier);
-			$key=split(',',$ligne)[0];
-			$value=split(',',$ligne);
-			$this->videos[$key]=$value[1].','.$value[2].','.$value[3];  //chaine de caractère pour ajax
+			if($i!=0){
+				$ligne=fgets($fichier);
+				$key=split(',',$ligne)[0];
+				$value=split(',',$ligne);
+				$this->videos[$key]=$value[1].','.$value[2].','.$value[3];  //chaine de caractère pour ajax
+			}
 			$i++;
 		}
 		fclose($fichier);

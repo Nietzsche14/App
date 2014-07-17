@@ -11,7 +11,13 @@ Class EcrireFichier{
 		fputs($fichierEcriture,$ligne);
 		fclose($fichierEcriture);
 	}
-	
+	public function ecrireCaracteristiqueWorker($id,$ecran){
+		$fichierEcriture=fopen($this->fichier,'a+');
+		$fichierEcriture->fgets();
+		fputs($fichierEcriture,'clientId,'$id);
+		fputs($fichierEcriture,'ecran,'$ecran);
+		fclose($fichierEcriture);
+	}
 	public function ecrireCaracteristiqueWorker($arrayCaracteristiqueWorker){
 		$fichierEcriture=fopen($this->fichier,'a+');
 		foreach($arrayCaracteristiqueWorker as $key=>$value){
@@ -28,6 +34,10 @@ Class EcrireFichier{
 			fputs($fichierEcriture,$ligne);
 		}
 		fclose($fichierEcriture);
+	}
+	public function ecrire($ligne){
+		$fichierEcriture=fopen($this->fichier,'a+');
+		fputs($fichierEcriture,$ligne."\n");
 	}
 }
 ?>

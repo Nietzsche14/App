@@ -5,7 +5,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '5c69d4d14e9c68d7015b168fbd19fd69591aa54e' => 
     array (
       0 => 'vue\\haut.html',
-      1 => 1405522702,
+      1 => 1405607476,
       2 => 'file',
     ),
   ),
@@ -21,6 +21,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 <html>
 <head>
 	<meta charset="utf-8"/>
+	<link rel="stylesheet" type="text/css" href="vue/theme.css">
 	<title>Tri vidéo</title>
 </head>
 <body>
